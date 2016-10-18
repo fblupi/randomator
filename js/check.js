@@ -21,11 +21,26 @@ function checkInitialConfiguration() {
  */
 function checkPeopleConfiguration() {
   var peopleNumber = $("#people-number").val();
+  var teamNumber = $("#team-number").val();
   for (var i = 1; i < peopleNumber; i++) {
     if ($("#name-" + i).val() === '') {
       Materialize.toast("Person name can't be void", 4000);
       return;
     }
   }
-  //createTeams();
+  createTeams(peopleNumber, teamNumber);
+}
+
+/**
+ * Clear results
+ */
+function clearResults() {
+  var peopleNumberField = $("#people-number");
+  var teamNumberField = $("#team-number");
+  var peopleConfiguration = $("#people-configuration");
+  var teamsResult = $("#teams-result");
+  peopleNumberField.removeAttr("disabled");
+  teamNumberField.removeAttr("disabled");
+  peopleConfiguration.html("");
+  teamsResult.html("");
 }

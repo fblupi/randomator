@@ -7,12 +7,12 @@ function createPeopleConfiguration(peopleNumber) {
       result += '<div class="row">';
       result += '<form class="col s12" name="people-configuration-form" role="form" onsubmit="checkPeopleConfiguration();" action="javascript: return false;">';
       result += '<div class="row" id="people-names">';
-      for (var i = 1; i <= peopleNumber; i++) {
-        result += '<div class="input-field col s12 m4">';
-        result += '<input id="name-' + i + '" type="text" class="validate">';
-        result += '<label for="name-' + i + '">Name #' + i + '</label>';
-        result += '</div>';
-      }
+  for (var i = 1; i <= peopleNumber; i++) {
+      result += '<div class="input-field col s12 m4">';
+      result += '<input id="name-' + i + '" type="text" class="validate">';
+      result += '<label for="name-' + i + '">Name #' + i + '</label>';
+      result += '</div>';
+  }
       result += '</div>';
       result += '<button class="btn waves-effect waves-light" type="submit" name="action">Let&#39;s make teams!</button>';
       result += '</form>';
@@ -21,16 +21,32 @@ function createPeopleConfiguration(peopleNumber) {
   $("#people-configuration").html(result);
 }
 
-/**
- * Clear results
- */
-function clearResults() {
-  var peopleNumberField = $("#people-number");
-  var teamNumberField = $("#team-number");
-  var peopleConfiguration = $("#people-configuration");
-  var teamsResult = $("#teams-result");
-  peopleNumberField.removeAttr("disabled");
-  teamNumberField.removeAttr("disabled");
-  peopleConfiguration.html("");
-  teamsResult.html("");
+function createTeams(peopleNumber, teamNumber) {
+  var teams = [];
+  for (var i = 0; i < teamNumber; i++) {
+    teams[i] = [];
+  }
+  for (var i = 1; i <= peopleNumber; i++) {
+    var n = Math.floor(Math.random() * teamNumber);
+    while (teams[n].length === Math.ceil(peopleNumber / teamNumber)) {
+      n += 1;
+      n %= teamNumber;
+    }
+    teams[n].push($("#name-" + i).val());
+  }
+  var result = '<h2>Teams</h2>';
+      result += '<div class="row">';
+  for (var i = 0; i < teamNumber; i++) {
+      result += '<div class="input-field col s12 m4">';
+      result += '<ul class="collection with-header">';
+      result += '<li class="collection-header"><h3>Team #' + (i + 1) + '</h3></li>';
+    for (var j = 0; j < teams[i].length; j++) {
+      result += '<li class="collection-item">' + teams[i][j] + '</li>';
+    }
+      result += '</ul>';
+      result += '</div>';
+  }
+      result += '</div>';
+
+  $("#teams-result").html(result);
 }
