@@ -13,22 +13,24 @@
         <form class="col s12" name="initial-configuration-form" role="form" onsubmit="checkInitialConfiguration();" action="javascript: return false;">
           <div class="row">
             <div class="input-field col s12 m6">
-              <input id="people_number" type="number" min="2" class="validate">
-              <label for="first_name">How many people?</label>
+              <input id="people-number" type="number" min="2" class="validate">
+              <label for="first-name">How many people?</label>
             </div>
             <div class="input-field col s12 m6">
-              <input id="team_number" type="number" min="2" class="validate">
-              <label for="last_name">How many teams?</label>
+              <input id="team-number" type="number" min="2" class="validate">
+              <label for="last-name">How many teams?</label>
             </div>
           </div>
           <button class="btn waves-effect waves-light" type="submit" name="action">Let's write names!</button>
+          <button class="btn waves-effect waves-teal btn-flat" type="button" name="action" onclick="clearResults();">Reset</button>
         </form>
       </div>
-      <div id="people_configuration"></div>
-      <div id="result"></div>
+      <div id="people-configuration"></div>
+      <div id="teams-result"></div>
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/materialize.min.js"></script>
+    <script src="js/randomator.js"></script>
     <script src="js/check.js"></script>
   </body>
 </html>
