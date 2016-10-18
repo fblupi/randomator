@@ -7,7 +7,7 @@ function checkInitialConfiguration() {
   var teamNumberField = $("#team-number");
   var peopleNumber = peopleNumberField.val();
   var teamNumber = teamNumberField.val();
-  if (peopleNumber !== '' && teamNumber !== '' && peopleNumber >= teamNumber) {
+  if (peopleNumber !== '' && teamNumber !== '' && parseInt(peopleNumber) >= parseInt(teamNumber)) {
     peopleNumberField.attr("disabled", true);
     teamNumberField.attr("disabled", true);
     createPeopleConfiguration(peopleNumber);
@@ -22,7 +22,7 @@ function checkInitialConfiguration() {
 function checkPeopleConfiguration() {
   var peopleNumber = $("#people-number").val();
   for (var i = 1; i < peopleNumber; i++) {
-    if ($("#name-" + i) === '') {
+    if ($("#name-" + i).val() === '') {
       Materialize.toast("Person name can't be void", 4000);
       return;
     }
