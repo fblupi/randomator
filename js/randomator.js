@@ -27,11 +27,25 @@ function createTeams(peopleNumber, teamNumber) {
     teams[i] = [];
   }
   for (var i = 1; i <= peopleNumber; i++) {
-    var n = Math.floor(Math.random() * teamNumber);
-    while (teams[n].length === Math.ceil(peopleNumber / teamNumber)) {
-      n += 1;
-      n %= teamNumber;
+    var fullTeams = true;
+    for (var j = 0; j < teamNumber; j++) {
+      if (teams[j].length < Math.floor(peopleNumber / teamNumber)) {
+        fullTeams = false;
+      }
     }
+    var n = Math.floor(Math.random() * teamNumber);
+    if (fullTeams) {
+      while (teams[n].length === Math.ceil(peopleNumber / teamNumber)) {
+        n += 1;
+        n %= teamNumber;
+      }
+    } else {
+      while (teams[n].length === Math.floor(peopleNumber / teamNumber)) {
+        n += 1;
+        n %= teamNumber;
+      }
+    }
+
     teams[n].push($("#name-" + i).val());
   }
   var result = '<h2>Teams</h2>';
