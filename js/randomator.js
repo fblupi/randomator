@@ -5,7 +5,7 @@
 function createPeopleConfiguration(peopleNumber) {
   var result = '<h2>People configuration</h2>';
       result += '<div class="row">';
-      result += '<form class="col s12" name="people-configuration-form" role="form" onsubmit="checkPeopleConfiguration();" action="javascript: return false;">';
+      result += '<form class="col s12" name="people-configuration-form" role="form" onSubmit="checkPeopleConfiguration(); return false;">';
       result += '<div class="row" id="people-names">';
   for (var i = 1; i <= peopleNumber; i++) {
       result += '<div class="input-field col s12 m4">';
@@ -14,15 +14,16 @@ function createPeopleConfiguration(peopleNumber) {
       result += '</div>';
   }
       result += '</div>';
-      result += '<button class="btn waves-effect waves-light" type="submit" name="action">Let&#39;s make teams!</button>';
+      result += '<button class="btn waves-effect waves-light" type="submit">Let&#39;s make teams!</button>';
       result += '</form>';
       result += '</div>';
 
   $("#people-configuration").html(result);
 }
 
+let teams = null;
 function createTeams(peopleNumber, teamNumber) {
-  var teams = [];
+  teams = [];
   for (var i = 0; i < teamNumber; i++) {
     teams[i] = [];
   }
@@ -49,6 +50,8 @@ function createTeams(peopleNumber, teamNumber) {
     teams[n].push($("#name-" + i).val());
   }
   var result = '<h2>Teams</h2>';
+      result += '<button class="btn waves-effect waves-light" onclick="download(0)">Download CSV</button> ';
+      result += '<button class="btn waves-effect waves-light" onclick="download(1)">Download TXT</button> ';
       result += '<div class="row">';
   for (var i = 0; i < teamNumber; i++) {
       result += '<div class="input-field col s12 m4">';
@@ -63,4 +66,39 @@ function createTeams(peopleNumber, teamNumber) {
       result += '</div>';
 
   $("#teams-result").html(result);
+}
+
+function byteArrayToBase64(bytes) {
+  var chArray = Array.prototype.map.call(bytes, 
+                   function (byte) { return String.fromCharCode(byte); });
+
+  return window.btoa(chArray.join(""));
+}
+
+function download(type) {
+  let file = "";
+  let filename = "";
+  let filetype = ""
+  switch(type) {
+    case 0: //CSV
+      filename = "teams.csv";
+      filetype = "text/csv";
+      file += "Name,Team\n";
+      teams.forEach(function(team,index) {
+        team.forEach(function(name) {
+          file += name + "," + index + "\n";
+        });
+      });
+      break;
+    case 1: //TXT
+      filename = "teams.txt";
+      filetype = "text/plain";
+      teams.forEach(function(team,index) {
+        team.forEach(function(name) {
+          file += name + " => Team #" + index + "\n";
+        });
+      });
+      break;
+  }
+  saveAs(new File([file], filename, {type: filetype+";charset=utf-8"}));
 }
