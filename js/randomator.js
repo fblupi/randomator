@@ -50,8 +50,8 @@ function createTeams(peopleNumber, teamNumber) {
     teams[n].push($("#name-" + i).val());
   }
   var result = '<h2>Teams</h2>';
-      result += '<button class="btn waves-effect waves-light" onclick="download(0)">Download CSV</button> ';
-      result += '<button class="btn waves-effect waves-light" onclick="download(1)">Download TXT</button> ';
+      result += '<button class="btn waves-effect waves-light" onclick="download(0)"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;CSV</button> ';
+      result += '<button class="btn waves-effect waves-light" onclick="download(1)"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;TXT</button> ';
       result += '<div class="row">';
   for (var i = 0; i < teamNumber; i++) {
       result += '<div class="input-field col s12 m4">';
